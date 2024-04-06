@@ -1,0 +1,55 @@
+:root {
+    --lightGreen: #47a820;
+    --darkRed: #d71414;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; 
+}
+
+body {
+    width: 100vw;
+    margin: 0 auto;
+    background-color: rgb(222, 222, 142);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+#root {
+    position: relative;
+    overflow-x: hidden;
+}
+
+.title {
+    max-width: 90%;
+    margin: 30px auto; 
+    font-size: 2rem;
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    height: 45px;
+    padding: 10px;
+    border-radius: 2px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    cursor: pointer;
+    transition: all linear .5s;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}

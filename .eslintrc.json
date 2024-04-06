@@ -1,0 +1,29 @@
+{
+    "plugins": ["prettier", "import", "@typescript-eslint"],
+    "extends": [
+        "airbnb-base/legacy",
+        "plugin:prettier/recommended",
+        "prettier",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        "no-debugger": "off",
+        "no-console": 0,
+        "global-require" : "off",
+        "class-methods-use-this": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "no-unused-expressions": "error"
+    },
+    "noInlineConfig": true
+}

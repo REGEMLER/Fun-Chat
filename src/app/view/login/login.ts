@@ -16,7 +16,7 @@ export function createLoginForm() {
                     <span class="login_message login_message1"></span>
                 </div>
                 <div class="login_field">
-                    <input autocomplete="off" id="password" class="login_input" type="text" placeholder="Your password" required>
+                    <input autocomplete="off" id="password" class="login_input" type="password" placeholder="Your password" required>
                     <span class="login_message login_message2"></span>
                 </div>
             </div>

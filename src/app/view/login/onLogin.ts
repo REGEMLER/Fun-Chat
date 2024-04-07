@@ -1,3 +1,4 @@
+import { createMainPage } from '../main/main';
 import { validateLetters, validateLength } from './validators';
 
 function validate(fuild: HTMLInputElement, hint: Element, name: string, length: number) {
@@ -23,6 +24,9 @@ export function onLogin(e: SubmitEvent) {
     e.preventDefault();
     if (e.target instanceof HTMLFormElement) {
         console.log(e.target);
+        const name = document.getElementById('name') as HTMLInputElement;
+        const pass = document.getElementById('password') as HTMLInputElement;
+        createMainPage(name.value, pass.value);
     }
 }
 

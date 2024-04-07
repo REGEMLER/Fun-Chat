@@ -1,6 +1,7 @@
 import './login.css';
 import { onInput, onLogin } from './onLogin';
 import { createRoot } from '../root/root';
+import { createAbout } from '../about/about';
 
 export function createLoginForm() {
     const root: HTMLElement = createRoot();
@@ -27,7 +28,9 @@ export function createLoginForm() {
     const form: HTMLFormElement | null = root.querySelector('.login_form') as HTMLFormElement;
     const login: HTMLElement | null = document.getElementById('name') as HTMLInputElement;
     const password: HTMLElement | null = document.getElementById('password') as HTMLInputElement;
+    const aboutBtn: HTMLElement | null = document.getElementById('about') as HTMLButtonElement;
     form.addEventListener('submit', onLogin);
     login.addEventListener('input', onInput('password'));
     password.addEventListener('input', onInput('name'));
+    aboutBtn.addEventListener('click', createAbout);
 }

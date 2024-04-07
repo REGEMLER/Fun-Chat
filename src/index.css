@@ -23,11 +23,6 @@ body {
     overflow-x: hidden;
 }
 
-#root {
-    position: relative;
-    overflow-x: hidden;
-}
-
 .title {
     max-width: 90%;
     margin: 30px auto; 
@@ -44,12 +39,11 @@ body {
     border-radius: 2px;
     font-size: 1.5rem;
     font-weight: 700;
-    letter-spacing: 1px;
     text-align: center;
     cursor: pointer;
     transition: all linear .5s;
 }
 
-.btn:active {
+.btn:active:enabled{
     transform: scale(0.95);
 }

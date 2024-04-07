@@ -1,4 +1,9 @@
+import { createRoot } from './view/root/root';
+import { createLoginForm } from './view/login/login';
+
 export function launcher() {
+    createRoot();
+    createLoginForm();
     const socket = new WebSocket('ws://127.0.0.1:4000');
     socket.addEventListener('open', () => {
         console.log('Chat is started!');

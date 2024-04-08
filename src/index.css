@@ -48,3 +48,26 @@ body {
 .btn:active:enabled{
     transform: scale(0.95);
 }
+
+@media screen and (max-width: 768px){
+    .btn {
+        width: 150px;
+        margin: 10px auto;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .btn {
+        width: 100px;
+        height: 30px;
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 465px){
+    .btn {
+        width: 70px;
+    }
+}

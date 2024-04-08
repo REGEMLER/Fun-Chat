@@ -25,8 +25,8 @@ export function onLogin(e: SubmitEvent) {
     if (e.target instanceof HTMLFormElement) {
         console.log(e.target);
         const name = document.getElementById('name') as HTMLInputElement;
-        const pass = document.getElementById('password') as HTMLInputElement;
-        createMainPage(name.value, pass.value);
+        // const pass = document.getElementById('password') as HTMLInputElement;
+        createMainPage(name.value);
     }
 }
 

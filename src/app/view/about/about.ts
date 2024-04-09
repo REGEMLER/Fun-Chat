@@ -1,6 +1,6 @@
 import './about.css';
 import { createRoot } from '../root/root';
-import { createLoginForm } from '../login/login';
+import { onAbout } from '../../controller/about/onAbout';
 
 export function createAbout() {
     const root: HTMLElement = createRoot();
@@ -13,5 +13,5 @@ export function createAbout() {
     </main>`;
     root.innerHTML = inner;
     const backBtn: HTMLElement | null = document.getElementById('back') as HTMLButtonElement;
-    backBtn.addEventListener('click', createLoginForm);
+    backBtn.addEventListener('click', onAbout);
 }

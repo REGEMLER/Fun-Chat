@@ -1,13 +1,20 @@
+import { Iauth, IauthReq } from '../../interfaces/interfaces';
 import { createLoginForm } from '../../view/login/login';
-import { createSocket, socketData } from '../socket/createSocket';
+import { createSocket } from '../socket/createSocket';
 
 function checkLogout(event: MessageEvent) {
-    const data: socketData = JSON.parse(event.data);
-    const isLogined = data.payload.user.isLogined;
-    if (!isLogined) {
-        createLoginForm();
-    } else {
-        console.log('Error!');
+    const data: Iauth = JSON.parse(event.data);
+    if (data.payload.user) {
+        const isLogined = data.payload.user.isLogined;
+        if (!isLogined) {
+            createLoginForm();
+            sessionStorage.clear();
+        } else {
+            console.log('Error! You are already out!');
+        }
+    }
+    if (data.payload.error) {
+        console.log(data.payload.error);
     }
 }
 
@@ -16,7 +23,7 @@ export function onLogout() {
     const password = sessionStorage.getItem('password');
     const socket = createSocket();
     socket.addEventListener('open', () => {
-        const msg = {
+        const msg: IauthReq = {
             id: `${name}`,
             type: 'USER_LOGOUT',
             payload: {

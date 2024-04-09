@@ -1,6 +1,7 @@
 import './main.css';
 import { createRoot } from '../root/root';
 import { onLogout } from '../../controller/logout/logout';
+import { createAbout } from '../about/about';
 // import { createLoginForm } from '../login/login';
 
 function createHeader(name: string): HTMLElement {
@@ -10,7 +11,7 @@ function createHeader(name: string): HTMLElement {
         <h2 class="header_title">User: ${name}</h2>
         <h2 class="header_title">Fun chat</h2>
         <div class="header_btns">
-            <button id="about" class="header_btn btn">About</button>
+            <button id="aboutMain" class="header_btn btn">About</button>
             <button id="logout" class="header_btn btn">Log out</button>
         </div>
     `;
@@ -112,6 +113,8 @@ export function createMainPage(name: string) {
     const fuild = chat.querySelector('.chat_fuild');
     userList?.append(user1, user2, user3, user4);
     fuild?.append(msg1);
-    const logoutBTN = document.getElementById('logout');
-    logoutBTN?.addEventListener('click', onLogout);
+    const logoutBTN = document.getElementById('logout') as HTMLButtonElement;
+    const aboutBTN = document.getElementById('aboutMain') as HTMLButtonElement;
+    logoutBTN.addEventListener('click', onLogout);
+    aboutBTN.addEventListener('click', createAbout);
 }

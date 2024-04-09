@@ -1,7 +1,7 @@
 import './login.css';
-import { onInput, onLogin } from './onLogin';
 import { createRoot } from '../root/root';
 import { createAbout } from '../about/about';
+import { onLogin, onInput } from '../../controller/login/login';
 
 export function createLoginForm() {
     const root: HTMLElement = createRoot();

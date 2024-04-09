@@ -1,5 +1,6 @@
 import './main.css';
 import { createRoot } from '../root/root';
+import { onLogout } from '../../controller/logout/logout';
 // import { createLoginForm } from '../login/login';
 
 function createHeader(name: string): HTMLElement {
@@ -9,8 +10,8 @@ function createHeader(name: string): HTMLElement {
         <h2 class="header_title">User: ${name}</h2>
         <h2 class="header_title">Fun chat</h2>
         <div class="header_btns">
-            <button class="header_btn btn">About</button>
-            <button class="header_btn btn">Log out</button>
+            <button id="about" class="header_btn btn">About</button>
+            <button id="logout" class="header_btn btn">Log out</button>
         </div>
     `;
     header.innerHTML = inner;
@@ -107,9 +108,10 @@ export function createMainPage(name: string) {
     const user3 = createUserItem('MC JOet');
     const user4 = createUserItem('Xoel');
     const msg1 = createMessage('U aotr grhr rglnfgh asghhd');
-    const msg2 = createMessage('U aotr grhr rglnfgh asghhd');
     const userList = aside.querySelector('.user-list');
     const fuild = chat.querySelector('.chat_fuild');
     userList?.append(user1, user2, user3, user4);
-    fuild?.append(msg1, msg2, msg1, msg2);
+    fuild?.append(msg1);
+    const logoutBTN = document.getElementById('logout');
+    logoutBTN?.addEventListener('click', onLogout);
 }

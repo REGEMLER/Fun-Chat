@@ -1,4 +1,5 @@
-import { createMainPage } from '../main/main';
+import { createMainPage } from '../../view/main/main';
+import { createSocket, socketData } from '../socket/createSocket';
 import { validateLetters, validateLength } from './validators';
 
 function validate(fuild: HTMLInputElement, hint: Element, name: string, length: number) {
@@ -7,7 +8,7 @@ function validate(fuild: HTMLInputElement, hint: Element, name: string, length: 
     currentHint.textContent = '';
     if (!validateLetters(fuild.value)) {
         const currentContent = currentHint.textContent;
-        const errorMessage = 'You can use only English alphabet letters and the hyphen symbol.';
+        const errorMessage = 'You can use only English alphabet letters and numbers.';
         currentHint.textContent = `${currentContent} ${errorMessage}`;
         isValid = false;
     }
@@ -20,13 +21,39 @@ function validate(fuild: HTMLInputElement, hint: Element, name: string, length: 
     return isValid;
 }
 
-export function onLogin(e: SubmitEvent) {
-    e.preventDefault();
-    if (e.target instanceof HTMLFormElement) {
-        console.log(e.target);
+function checkLogin(event: MessageEvent) {
+    const data: socketData = JSON.parse(event.data);
+    const isLogined = data.payload.user.isLogined;
+    if (isLogined) {
         const name = document.getElementById('name') as HTMLInputElement;
-        // const pass = document.getElementById('password') as HTMLInputElement;
         createMainPage(name.value);
+    } else {
+        console.log('Error!');
+    }
+}
+
+export function onLogin(event: SubmitEvent) {
+    event.preventDefault();
+    if (event.target instanceof HTMLFormElement) {
+        const name = document.getElementById('name') as HTMLInputElement;
+        const password = document.getElementById('password') as HTMLInputElement;
+        sessionStorage.setItem('name', name.value);
+        sessionStorage.setItem('password', password.value);
+        const socket = createSocket();
+        socket.addEventListener('open', () => {
+            const msg = {
+                id: `${name.value}`,
+                type: 'USER_LOGIN',
+                payload: {
+                    user: {
+                        login: `${name.value}`,
+                        password: `${password.value}`,
+                    },
+                },
+            };
+            socket.send(JSON.stringify(msg));
+        });
+        socket.addEventListener('message', checkLogin);
     }
 }
 

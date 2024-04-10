@@ -2,7 +2,8 @@ import './main.css';
 import { createRoot } from '../root/root';
 import { onLogout } from '../../controller/logout/logout';
 import { createAbout } from '../about/about';
-// import { createLoginForm } from '../login/login';
+import { createSocket } from '../../controller/socket/createSocket';
+import { getUsers } from '../../controller/main/getUsers';
 
 function createHeader(name: string): HTMLElement {
     const header = document.createElement('header');
@@ -28,16 +29,6 @@ function createAside(): HTMLElement {
     `;
     aside.innerHTML = inner;
     return aside;
-}
-
-function createUserItem(name: string): HTMLElement {
-    const user = document.createElement('div');
-    user.classList.add('user-item');
-    const inner: string = `
-        <div class="user-name"><span class="user-status"></span> ${name}</div>
-    `;
-    user.innerHTML = inner;
-    return user;
 }
 
 function createMessage(text: string): HTMLElement {
@@ -89,6 +80,22 @@ function createFooter(): HTMLElement {
 }
 
 export function createMainPage(name: string) {
+    const socket = createSocket();
+    socket.addEventListener('open', () => {
+        const activeUsers = {
+            id: name,
+            type: 'USER_ACTIVE',
+            payload: null,
+        };
+        const unactiveUsers = {
+            id: name,
+            type: 'USER_INACTIVE',
+            payload: null,
+        };
+        socket.send(JSON.stringify(activeUsers));
+        socket.send(JSON.stringify(unactiveUsers));
+    });
+    socket.addEventListener('message', getUsers);
     const root: HTMLElement = createRoot();
     const main = document.createElement('main');
     main.classList.add('main');
@@ -99,19 +106,11 @@ export function createMainPage(name: string) {
     const chat = createChat();
     mainSection.append(aside, chat);
     const footer = createFooter();
-    main.append(header);
-    main.append(mainSection);
-    main.append(footer);
+    main.append(header, mainSection, footer);
     root.innerHTML = '';
     root.append(main);
-    const user1 = createUserItem('Molli');
-    const user2 = createUserItem('Tom');
-    const user3 = createUserItem('MC JOet');
-    const user4 = createUserItem('Xoel');
     const msg1 = createMessage('U aotr grhr rglnfgh asghhd');
-    const userList = aside.querySelector('.user-list');
     const fuild = chat.querySelector('.chat_fuild');
-    userList?.append(user1, user2, user3, user4);
     fuild?.append(msg1);
     const logoutBTN = document.getElementById('logout') as HTMLButtonElement;
     const aboutBTN = document.getElementById('aboutMain') as HTMLButtonElement;

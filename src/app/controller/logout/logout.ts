@@ -4,17 +4,19 @@ import { createSocket } from '../socket/createSocket';
 
 function checkLogout(event: MessageEvent) {
     const data: Iauth = JSON.parse(event.data);
-    if (data.payload.user) {
-        const isLogined = data.payload.user.isLogined;
-        if (!isLogined) {
-            createLoginForm();
-            sessionStorage.clear();
-        } else {
-            console.log('Error! You are already out!');
+    if (data.type === 'USER_LOGOUT' || data.type === 'ERROR') {
+        if (data.payload.user) {
+            const isLogined = data.payload.user.isLogined;
+            if (!isLogined) {
+                createLoginForm();
+                sessionStorage.clear();
+            } else {
+                console.log('Error! You are already out!');
+            }
         }
-    }
-    if (data.payload.error) {
-        console.log(data.payload.error);
+        if (data.payload.error) {
+            console.log(data.payload.error);
+        }
     }
 }
 

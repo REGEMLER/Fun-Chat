@@ -20,3 +20,27 @@ export interface Iauth {
         error?: string;
     };
 }
+
+export interface user {
+    login: string;
+    isLogined: boolean;
+}
+
+export interface IUsers {
+    id: string;
+    type: string;
+    payload: {
+        users: user[];
+    };
+}
+
+export interface IExtUser {
+    id: null;
+    type: string;
+    payload: {
+        user: {
+            login: string;
+            isLogined: boolean;
+        };
+    };
+}

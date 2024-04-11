@@ -1,4 +1,5 @@
 import { IExtUser, IUsers } from '../../interfaces/interfaces';
+import { setUser, setUserEvent } from './setUser';
 
 function createUserItem(name: string, isLogined: boolean): HTMLElement {
     const user = document.createElement('div');
@@ -14,6 +15,7 @@ function createUserItem(name: string, isLogined: boolean): HTMLElement {
     }
     userName.append(span);
     user.append(userName);
+    user.addEventListener('click', setUserEvent);
     return user;
 }
 
@@ -30,6 +32,7 @@ export function getUsers(event: MessageEvent) {
                 userList.append(userItem);
             });
         }
+        setUser(document.body.querySelector('.user-name'));
     }
 }
 

@@ -4,6 +4,7 @@ import { onLogout } from '../../controller/logout/logout';
 import { createAbout } from '../about/about';
 import { createSocket } from '../../controller/socket/createSocket';
 import { getUsers } from '../../controller/main/getUsers';
+import { fetchHistory, getMessage, sendMessage } from '../../controller/main/message';
 
 function createHeader(name: string): HTMLElement {
     const header = document.createElement('header');
@@ -31,21 +32,6 @@ function createAside(): HTMLElement {
     return aside;
 }
 
-function createMessage(text: string): HTMLElement {
-    const message = document.createElement('div');
-    message.classList.add('message');
-    const inner: string = `
-        <div class="message_header">
-            <div class="message_info">You</div>
-            <div class="message_info">08.04.2024, 20:17:47</div>
-        </div>
-        <div class="message_text">${text}</div>
-        <div class="message_status">Sended</div>
-    `;
-    message.innerHTML = inner;
-    return message;
-}
-
 function createChat(): HTMLElement {
     const chat = document.createElement('section');
     chat.classList.add('chat');
@@ -61,6 +47,8 @@ function createChat(): HTMLElement {
         </div>
     `;
     chat.innerHTML = inner;
+    const btn = chat.querySelector('.chat_btn') as HTMLButtonElement;
+    btn.addEventListener('click', sendMessage);
     return chat;
 }
 
@@ -92,10 +80,22 @@ export function createMainPage(name: string) {
             type: 'USER_INACTIVE',
             payload: null,
         };
+        // const fetchingHistory = {
+        //     id: 'bsbfxgnsrnf',
+        //     type: 'MSG_FROM_USER',
+        //     payload: {
+        //         user: {
+        //             login: 'aaa',
+        //         },
+        //     },
+        // };
         socket.send(JSON.stringify(activeUsers));
         socket.send(JSON.stringify(unactiveUsers));
+        // socket.send(JSON.stringify(fetchingHistory));
     });
     socket.addEventListener('message', getUsers);
+    socket.addEventListener('message', getMessage);
+    socket.addEventListener('message', fetchHistory);
     const root: HTMLElement = createRoot();
     const main = document.createElement('main');
     main.classList.add('main');
@@ -109,9 +109,6 @@ export function createMainPage(name: string) {
     main.append(header, mainSection, footer);
     root.innerHTML = '';
     root.append(main);
-    const msg1 = createMessage('U aotr grhr rglnfgh asghhd');
-    const fuild = chat.querySelector('.chat_fuild');
-    fuild?.append(msg1);
     const logoutBTN = document.getElementById('logout') as HTMLButtonElement;
     const aboutBTN = document.getElementById('aboutMain') as HTMLButtonElement;
     logoutBTN.addEventListener('click', onLogout);

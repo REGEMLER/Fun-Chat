@@ -44,3 +44,35 @@ export interface IExtUser {
         };
     };
 }
+
+export interface message {
+    id: string;
+    from: string;
+    to: string;
+    text: string;
+    datetime: number;
+    status: {
+        isDelivered: boolean;
+        isReaded: boolean;
+        isEdited: boolean;
+    };
+}
+
+export interface IMessageReq {
+    id: string;
+    type: string;
+    payload: {
+        message: {
+            to: string;
+            text: string;
+        };
+    };
+}
+
+export interface IMessageRes {
+    id: string;
+    type: string;
+    payload: {
+        message: message;
+    };
+}

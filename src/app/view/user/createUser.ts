@@ -1,3 +1,4 @@
+import './user.css';
 import { setUserEvent } from '../../controller/main/setUser';
 
 export function createUserItem(name: string, isLogined: boolean): HTMLElement {

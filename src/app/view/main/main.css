@@ -92,61 +92,6 @@
     padding-left: 30px;
 }
 
-.user-item {
-    width: 100%;
-    margin: 10px auto;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all linear .7s;
-}
-
-.user-item:hover {
-    background-color: #e2dede;
-}
-
-.user-name {
-    position: relative;
-    font-size: 1.2rem;
-    color: var(--lightGreen); 
-}
-
-.user-name_inactive {
-    color: var(--darkRed);
-}
-
-.user-status {
-    display: block;
-    position: absolute;
-    top: 0;
-    transform: translateY(25%);
-    left: -30px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: var(--lightGreen);
-}
-
-.user-status_inactive {
-    background-color: var(--darkRed);
-}
-
-.user-messages {
-    display: block;
-    position: absolute;
-    top: 0;
-    transform: translateY(25%);
-    right: -30px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid var(--lightGreen);
-    background-color: transparent;
-}
-
 .chat {
     max-width: 70%;
     flex-basis: 70%;
@@ -218,42 +163,6 @@
     background-color: gray;
     color: black;
     cursor: auto;
-}
-
-.message{
-    max-width: 60%;
-    margin: 10px 0;
-    border: 2px solid var(--lightGreen);
-    border-radius: 2px;
-    display: flex;
-    flex-direction: column;
-}
-
-.message_header {
-    width: 100%;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #e2dede;
-}
-
-.message_info {
-    font-size: 1rem;
-    color: var(--lightGreen);
-}
-
-.message_text {
-    padding: 1rem;
-    font-size: 1.2rem;
-    color: var(--lightGreen);
-}
-
-.message_status {
-    padding: 0.5rem;
-    font-size: 1rem;
-    color: var(--lightGreen);
-    background-color: #e2dede;
 }
 
 .footer {
@@ -328,11 +237,7 @@
     #searchUser {
         width: 250px;
     }
-               
-    .user-name {
-        font-size: 1rem;
-    }
-    
+                   
     .chat {
         max-width: 95%;
         flex-basis: 95%;
@@ -344,22 +249,6 @@
       
     .chat_name, .chat_status {
         font-size: 1rem;
-    }
-
-    .message{
-        max-width: 80%;
-    }
-             
-    .message_info {
-        font-size: 0.5rem;
-    }
-    
-    .message_text {
-        font-size: 1rem;
-    }
-    
-    .message_status {
-        font-size: 0.5rem;
     }
 
     .footer_link {

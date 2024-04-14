@@ -44,13 +44,19 @@ export function fetchHistory(event: MessageEvent) {
             fuild.textContent = 'Send your first message!';
             return;
         }
+        const currentUser = sessionStorage.getItem('name');
         messages.forEach((message) => {
+            const date = new Date(message.datetime);
             const messageItem = createMessage(
                 message.from,
-                message.datetime.toString(),
+                `${date.toLocaleDateString()} - ${date.getHours()}:${date.getMinutes()}`,
                 message.text,
                 String(message.status.isDelivered)
             );
+            if (currentUser === message.from) {
+                console.log(messageItem);
+                messageItem.classList.add('message_send');
+            }
             fuild.append(messageItem);
         });
     }

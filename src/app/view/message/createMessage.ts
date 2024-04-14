@@ -1,3 +1,5 @@
+import './message.css';
+
 export function createMessage(sender: string, time: string, text: string, status: string): HTMLElement {
     const message = document.createElement('div');
     message.classList.add('message');

@@ -1,7 +1,6 @@
 import { Iauth, IauthReq } from '../../interfaces/interfaces';
 import { createMainPage } from '../../view/main/main';
-import { changeUser } from '../main/getUsers';
-import { createSocket } from '../socket/createSocket';
+import { socket } from '../../..';
 
 function checkLogin(event: MessageEvent) {
     const data: Iauth = JSON.parse(event.data);
@@ -28,21 +27,17 @@ export function onLogin(event: SubmitEvent) {
         const password = document.getElementById('password') as HTMLInputElement;
         sessionStorage.setItem('name', name.value);
         sessionStorage.setItem('password', password.value);
-        const socket = createSocket();
-        socket.addEventListener('open', () => {
-            const msg: IauthReq = {
-                id: `${name.value}`,
-                type: 'USER_LOGIN',
-                payload: {
-                    user: {
-                        login: `${name.value}`,
-                        password: `${password.value}`,
-                    },
+        const request: IauthReq = {
+            id: Date.now.toString(),
+            type: 'USER_LOGIN',
+            payload: {
+                user: {
+                    login: `${name.value}`,
+                    password: `${password.value}`,
                 },
-            };
-            socket.send(JSON.stringify(msg));
-        });
+            },
+        };
+        socket.send(JSON.stringify(request));
         socket.addEventListener('message', checkLogin);
-        socket.addEventListener('message', changeUser);
     }
 }

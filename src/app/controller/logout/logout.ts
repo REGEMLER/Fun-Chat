@@ -1,6 +1,6 @@
 import { Iauth, IauthReq } from '../../interfaces/interfaces';
 import { createLoginForm } from '../../view/login/login';
-import { createSocket } from '../socket/createSocket';
+import { socket } from '../../..';
 
 function checkLogout(event: MessageEvent) {
     const data: Iauth = JSON.parse(event.data);
@@ -23,19 +23,16 @@ function checkLogout(event: MessageEvent) {
 export function onLogout() {
     const name = sessionStorage.getItem('name');
     const password = sessionStorage.getItem('password');
-    const socket = createSocket();
-    socket.addEventListener('open', () => {
-        const msg: IauthReq = {
-            id: `${name}`,
-            type: 'USER_LOGOUT',
-            payload: {
-                user: {
-                    login: `${name}`,
-                    password: `${password}`,
-                },
+    const request: IauthReq = {
+        id: Date.now.toString(),
+        type: 'USER_LOGOUT',
+        payload: {
+            user: {
+                login: `${name}`,
+                password: `${password}`,
             },
-        };
-        socket.send(JSON.stringify(msg));
-    });
+        },
+    };
+    socket.send(JSON.stringify(request));
     socket.addEventListener('message', checkLogout);
 }

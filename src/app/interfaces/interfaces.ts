@@ -76,3 +76,21 @@ export interface IMessageRes {
         message: message;
     };
 }
+
+export interface IHistoryReq {
+    id: string;
+    type: string;
+    payload: {
+        user: {
+            login: string;
+        };
+    };
+}
+
+export interface IHistoryRes {
+    id: string;
+    type: string;
+    payload: {
+        messages: message[];
+    };
+}

@@ -2,8 +2,8 @@ import './main.css';
 import { createRoot } from '../root/root';
 import { onLogout } from '../../controller/logout/logout';
 import { createAbout } from '../about/about';
-import { createSocket } from '../../controller/socket/createSocket';
-import { getUsers } from '../../controller/main/getUsers';
+import { socket } from '../../..';
+import { getUsers, changeUser } from '../../controller/main/getUsers';
 import { fetchHistory, getMessage, sendMessage } from '../../controller/main/message';
 
 function createHeader(name: string): HTMLElement {
@@ -18,6 +18,10 @@ function createHeader(name: string): HTMLElement {
         </div>
     `;
     header.innerHTML = inner;
+    const logoutBTN = header.querySelector('#logout') as HTMLButtonElement;
+    const aboutBTN = header.querySelector('#aboutMain') as HTMLButtonElement;
+    logoutBTN.addEventListener('click', onLogout);
+    aboutBTN.addEventListener('click', createAbout);
     return header;
 }
 
@@ -37,13 +41,13 @@ function createChat(): HTMLElement {
     chat.classList.add('chat');
     const inner: string = `
         <div class="chat-header">
-            <p class="chat_name">Pijama lama</p>
-            <p class="chat_status">Online</p>
+            <p class="chat_name"></p>
+            <p class="chat_status"></p>
         </div>
-        <div class="chat_fuild"></div>
+        <div class="chat_fuild">Select any user to start chating</div>
         <div class="chat-footer">
-            <textarea class="textarea"></textarea>
-            <button class="chat_btn btn">Send</button>
+            <textarea class="textarea" disabled></textarea>
+            <button class="chat_btn btn" disabled>Send</button>
         </div>
     `;
     chat.innerHTML = inner;
@@ -57,7 +61,7 @@ function createFooter(): HTMLElement {
     footer.classList.add('footer');
     const inner: string = `
         <div class="footer_logo">
-            <img src="https://rs.school/assets/rs-logo-uySws9h1.png" alt="logo"/>
+            <img src="https://avatars.githubusercontent.com/u/11501370?s=280&v=4" alt="logo"/>
         </div>
         <h2 class="footer_title">RSSchool</h2>
         <a href="https://github.com/REGEMLER" class="footer_link">Yar Night</a>
@@ -68,34 +72,23 @@ function createFooter(): HTMLElement {
 }
 
 export function createMainPage(name: string) {
-    const socket = createSocket();
-    socket.addEventListener('open', () => {
-        const activeUsers = {
-            id: name,
-            type: 'USER_ACTIVE',
-            payload: null,
-        };
-        const unactiveUsers = {
-            id: name,
-            type: 'USER_INACTIVE',
-            payload: null,
-        };
-        // const fetchingHistory = {
-        //     id: 'bsbfxgnsrnf',
-        //     type: 'MSG_FROM_USER',
-        //     payload: {
-        //         user: {
-        //             login: 'aaa',
-        //         },
-        //     },
-        // };
-        socket.send(JSON.stringify(activeUsers));
-        socket.send(JSON.stringify(unactiveUsers));
-        // socket.send(JSON.stringify(fetchingHistory));
-    });
+    const activeUsers = {
+        id: Date.now.toString(),
+        type: 'USER_ACTIVE',
+        payload: null,
+    };
+    const unactiveUsers = {
+        id: Date.now.toString(),
+        type: 'USER_INACTIVE',
+        payload: null,
+    };
+    socket.send(JSON.stringify(activeUsers));
+    socket.send(JSON.stringify(unactiveUsers));
     socket.addEventListener('message', getUsers);
-    socket.addEventListener('message', getMessage);
+    socket.addEventListener('message', changeUser);
     socket.addEventListener('message', fetchHistory);
+    socket.addEventListener('message', getMessage);
+
     const root: HTMLElement = createRoot();
     const main = document.createElement('main');
     main.classList.add('main');
@@ -109,8 +102,4 @@ export function createMainPage(name: string) {
     main.append(header, mainSection, footer);
     root.innerHTML = '';
     root.append(main);
-    const logoutBTN = document.getElementById('logout') as HTMLButtonElement;
-    const aboutBTN = document.getElementById('aboutMain') as HTMLButtonElement;
-    logoutBTN.addEventListener('click', onLogout);
-    aboutBTN.addEventListener('click', createAbout);
 }

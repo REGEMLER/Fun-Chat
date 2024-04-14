@@ -1,5 +1,6 @@
-import { IMessageReq, IMessageRes } from '../../interfaces/interfaces';
-import { createSocket } from '../socket/createSocket';
+import { IMessageReq, IMessageRes, IHistoryRes } from '../../interfaces/interfaces';
+import { socket } from '../../..';
+import { createMessage } from '../../view/message/createMessage';
 
 export function sendMessage() {
     const textarea: HTMLTextAreaElement | null = document.querySelector('textarea');
@@ -7,8 +8,7 @@ export function sendMessage() {
     if (textarea && chatName) {
         const text: string = textarea.value;
         const adress: string | null = chatName.textContent;
-        if (adress === 'Nothing') return;
-        const socket: WebSocket = createSocket();
+        if (!adress) return;
         const messageRequest: IMessageReq = {
             id: String(Date.now()),
             type: 'MSG_SEND',
@@ -19,49 +19,39 @@ export function sendMessage() {
                 },
             },
         };
-        console.log(messageRequest);
-        socket.addEventListener('open', () => {
-            socket.send(JSON.stringify(messageRequest));
-        });
+        socket.send(JSON.stringify(messageRequest));
         socket.addEventListener('message', (e) => {
             console.log(e.data);
         });
     }
 }
 
-function createMessage(sender: string, time: string, text: string, status: string): HTMLElement {
-    const message = document.createElement('div');
-    message.classList.add('message');
-    const inner: string = `
-        <div class="message_header">
-            <div class="message_info">${sender}</div>
-            <div class="message_info">${time}</div>
-        </div>
-        <div class="message_text">${text}</div>
-        <div class="message_status">${status}</div>
-    `;
-    message.innerHTML = inner;
-    return message;
-}
-
 export function getMessage(event: MessageEvent) {
     const data: IMessageRes = JSON.parse(event.data);
     if (data.type === 'MSG_SEND') {
-        console.log(data);
-        const fuild = document.querySelector('.chat_fuild');
-        const message = createMessage(
-            data.payload.message.from,
-            data.payload.message.datetime.toString(),
-            data.payload.message.text,
-            String(data.payload.message.status.isDelivered)
-        );
-        fuild?.append(message);
+        console.log('MSG_FROM_USER');
+        // const userMessages = document.querySelector('.user-messages');
+        // userMessages?.textContent = 'One';
     }
 }
 
 export function fetchHistory(event: MessageEvent) {
-    const data: IMessageRes = JSON.parse(event.data);
+    const data: IHistoryRes = JSON.parse(event.data);
     if (data.type === 'MSG_FROM_USER' || data.type === 'ERROR') {
-        console.log(data.payload);
+        const messages = data.payload.messages;
+        const fuild = document.querySelector('.chat_fuild') as HTMLDivElement;
+        if (messages.length === 0) {
+            fuild.textContent = 'Send your first message!';
+            return;
+        }
+        messages.forEach((message) => {
+            const messageItem = createMessage(
+                message.from,
+                message.datetime.toString(),
+                message.text,
+                String(message.status.isDelivered)
+            );
+            fuild.append(messageItem);
+        });
     }
 }

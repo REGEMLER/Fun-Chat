@@ -46,15 +46,25 @@ export function fetchHistory(event: MessageEvent) {
         const sortedMessages = messages.sort((a, b) => Number(a.datetime) - Number(b.datetime));
         sortedMessages.forEach((message) => {
             const date = new Date(message.datetime);
+            const isDelivered = message.status.isDelivered;
+            const isReaded = message.status.isReaded;
+            const isEdited = message.status.isEdited;
+            let edit = 'Not edited';
+            if (isEdited) edit = 'Edited';
+            let status = '';
+            if (isDelivered) status = 'Delivered';
+            if (isReaded) status = 'Read';
             const messageItem = createMessage(
                 message.from,
                 `${date.toLocaleDateString()} - ${date.getHours()}:${date.getMinutes()}`,
                 message.text,
-                String(message.status.isDelivered)
+                status,
+                edit
             );
             if (currentUser === message.from) {
-                console.log(messageItem);
+                const messageStatusElement = messageItem.querySelector('.message_status');
                 messageItem.classList.add('message_send');
+                if (messageStatusElement) messageStatusElement.classList.remove('message_status_passive');
             }
             fuild.append(messageItem);
         });

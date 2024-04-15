@@ -8,7 +8,7 @@
 }
 
 .message_send {
-    max-width: 100%;
+    max-width: 80%;
     min-width: 60%;
     align-self: flex-end;
 }
@@ -23,8 +23,13 @@
 }
 
 .message_info {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: var(--lightGreen);
+}
+
+.message_info_btn {
+    color: var(--darkRed);
+    cursor: pointer;
 }
 
 .message_text {
@@ -33,11 +38,22 @@
     color: var(--lightGreen);
 }
 
-.message_status {
-    padding: 0.5rem;
-    font-size: 1rem;
-    color: var(--lightGreen);
+.message_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #e2dede;
+}
+
+.message_status, .message_edited {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--lightGreen);
+}
+
+.message_status_passive {
+    opacity: 0;
+    visibility: hidden;
 }
 
 @media screen and (max-width: 768px){

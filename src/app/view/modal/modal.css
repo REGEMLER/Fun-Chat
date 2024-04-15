@@ -1,0 +1,40 @@
+.modal {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background-color: rgba(218, 228, 228, 0.6);
+}
+
+.modal_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 65%;
+    margin: 0 auto;
+    min-height: 200px;
+    padding: 2rem;
+    background-color: var(--lightGreen);
+    color: white;
+    border-radius: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2rem;
+    position: relative;
+}
+
+.modal_text {
+    color: var(--darkRed);
+}
+
+.modal_btn {
+    border-radius: 5px;
+    color: var(--darkRed);
+}

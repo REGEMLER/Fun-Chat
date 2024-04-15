@@ -1,21 +1,24 @@
 import { Iauth, IauthReq } from '../../interfaces/interfaces';
 import { createMainPage } from '../../view/main/main';
 import { socket } from '../../..';
+import { createModal } from '../../view/modal/modal';
 
 function checkLogin(event: MessageEvent) {
     const data: Iauth = JSON.parse(event.data);
     if (data.type === 'USER_LOGIN' || data.type === 'ERROR') {
+        if (data.payload.error) {
+            createModal(data.payload.error);
+            sessionStorage.clear();
+            return;
+        }
         if (data.payload.user) {
             const isLogined = data.payload.user.isLogined;
             if (isLogined) {
                 const name = document.getElementById('name') as HTMLInputElement;
                 createMainPage(name.value);
             } else {
-                console.log('Error! You are already logined');
+                createModal('Error! You are already logined');
             }
-        }
-        if (data.payload.error) {
-            console.log(data.payload.error);
         }
     }
 }

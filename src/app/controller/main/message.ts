@@ -37,7 +37,7 @@ export function getMessage(event: MessageEvent) {
 
 export function fetchHistory(event: MessageEvent) {
     const data: IHistoryRes = JSON.parse(event.data);
-    if (data.type === 'MSG_FROM_USER' || data.type === 'ERROR') {
+    if (data.type === 'MSG_FROM_USER') {
         const messages = data.payload.messages;
         const fuild = document.querySelector('.chat_fuild') as HTMLDivElement;
         if (messages.length === 0) {

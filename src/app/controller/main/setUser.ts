@@ -11,6 +11,7 @@ export function setUser(user: Element | null) {
         statusFuild.textContent = '';
         nameFuild.textContent = '';
         chatFuild.textContent = '';
+        textarea.value = '';
         if (user instanceof HTMLDivElement) {
             const span = user.querySelector('.user-status') as HTMLSpanElement;
             const isOffline = span.classList.contains('user-status_inactive');

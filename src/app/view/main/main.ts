@@ -52,7 +52,13 @@ function createChat(): HTMLElement {
     `;
     chat.innerHTML = inner;
     const btn = chat.querySelector('.chat_btn') as HTMLButtonElement;
+    const textarea = chat.querySelector('.textarea') as HTMLTextAreaElement;
     btn.addEventListener('click', sendMessage);
+    textarea.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.code !== 'Enter') return;
+        event.preventDefault();
+        sendMessage();
+    });
     return chat;
 }
 

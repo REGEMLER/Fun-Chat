@@ -8,7 +8,7 @@ export function sendMessage() {
     if (textarea && chatName) {
         const text: string = textarea.value;
         const adress: string | null = chatName.textContent;
-        if (!adress) return;
+        if (!adress || !text) return;
         const messageRequest: IMessageReq = {
             id: String(Date.now()),
             type: 'MSG_SEND',
@@ -20,9 +20,7 @@ export function sendMessage() {
             },
         };
         socket.send(JSON.stringify(messageRequest));
-        socket.addEventListener('message', (e) => {
-            console.log(e.data);
-        });
+        textarea.value = '';
     }
 }
 
@@ -45,7 +43,8 @@ export function fetchHistory(event: MessageEvent) {
             return;
         }
         const currentUser = sessionStorage.getItem('name');
-        messages.forEach((message) => {
+        const sortedMessages = messages.sort((a, b) => Number(a.datetime) - Number(b.datetime));
+        sortedMessages.forEach((message) => {
             const date = new Date(message.datetime);
             const messageItem = createMessage(
                 message.from,

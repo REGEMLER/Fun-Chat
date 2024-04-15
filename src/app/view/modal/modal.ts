@@ -1,4 +1,5 @@
 import './modal.css';
+
 export function createModal(text: string) {
     const root: HTMLElement | null = document.getElementById('root');
     const modal: HTMLElement = document.createElement('DIV');

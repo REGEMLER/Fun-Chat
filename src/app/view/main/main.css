@@ -122,11 +122,14 @@
 
 .chat_fuild {
     width: 100%;
+    margin: 5px auto;
     display: flex;
     flex-direction: column;
     min-height: 300px;
     border-bottom: 1px solid var(--lightGreen);
     border-top: 1px solid var(--lightGreen);
+    text-align: center;
+    color: var(--darkRed);
 }
 
 .chat-footer {
@@ -142,6 +145,8 @@
     width: 300px;
     height: 45px;
     border: 1px solid var(--lightGreen);
+    font-size: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .chat_btn {

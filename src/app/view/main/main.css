@@ -94,13 +94,13 @@
 
 .chat {
     max-width: 70%;
+    min-height: 500px;
     flex-basis: 70%;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     border: 2px solid var(--lightGreen);
     border-radius: 5px;
-    min-height: 500px;
 }
 
 .chat-header {
@@ -123,6 +123,7 @@
 .chat_fuild {
     width: 100%;
     margin: 5px auto;
+    max-height: 1000px;
     display: flex;
     flex-direction: column;
     min-height: 300px;
@@ -130,6 +131,7 @@
     border-top: 1px solid var(--lightGreen);
     text-align: center;
     color: var(--darkRed);
+    overflow: auto;
 }
 
 .chat-footer {

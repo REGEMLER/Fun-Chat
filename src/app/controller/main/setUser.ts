@@ -1,7 +1,7 @@
 import { socket } from '../../..';
 import { IHistoryReq } from '../../interfaces/interfaces';
 
-export function setUser(user: Element | null) {
+export function setUser(user: Element) {
     const nameFuild = document.querySelector('.chat_name');
     const statusFuild = document.querySelector('.chat_status');
     const chatFuild = document.querySelector('.chat_fuild');

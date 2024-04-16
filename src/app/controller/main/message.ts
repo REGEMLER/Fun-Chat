@@ -1,6 +1,7 @@
-import { IMessageReq, IMessageRes, IHistoryRes } from '../../interfaces/interfaces';
+import { IMessageReq, IMessageRes, IHistoryRes, IHistoryReq } from '../../interfaces/interfaces';
 import { socket } from '../../..';
 import { createMessage } from '../../view/message/createMessage';
+import { createModal } from '../../view/modal/modal';
 
 export function sendMessage() {
     const textarea: HTMLTextAreaElement | null = document.querySelector('textarea');
@@ -27,9 +28,37 @@ export function sendMessage() {
 export function getMessage(event: MessageEvent) {
     const data: IMessageRes = JSON.parse(event.data);
     if (data.type === 'MSG_SEND') {
-        console.log('MSG_FROM_USER');
-        // const userMessages = document.querySelector('.user-messages');
-        // userMessages?.textContent = 'One';
+        const chatName = document.querySelector('.chat_name');
+        const recipient = data.payload.message.to;
+        const sender = data.payload.message.from;
+        if (chatName) {
+            const adress = chatName.textContent;
+            if (adress === recipient) {
+                const hisoryReq: IHistoryReq = {
+                    id: Date.now.toString(),
+                    type: 'MSG_FROM_USER',
+                    payload: {
+                        user: {
+                            login: String(recipient),
+                        },
+                    },
+                };
+                socket.send(JSON.stringify(hisoryReq));
+            } else if (adress === sender) {
+                const hisoryReq: IHistoryReq = {
+                    id: Date.now.toString(),
+                    type: 'MSG_FROM_USER',
+                    payload: {
+                        user: {
+                            login: String(sender),
+                        },
+                    },
+                };
+                socket.send(JSON.stringify(hisoryReq));
+            } else {
+                createModal('Your message has been delivered!');
+            }
+        }
     }
 }
 
@@ -42,6 +71,7 @@ export function fetchHistory(event: MessageEvent) {
             fuild.textContent = 'Send your first message!';
             return;
         }
+        fuild.innerHTML = '';
         const currentUser = sessionStorage.getItem('name');
         const sortedMessages = messages.sort((a, b) => Number(a.datetime) - Number(b.datetime));
         sortedMessages.forEach((message) => {

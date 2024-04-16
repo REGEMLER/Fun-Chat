@@ -10,6 +10,13 @@
     transition: all linear .7s;
 }
 
+.user-item_inactive {
+    position: relative;
+    z-index: -100;
+    opacity: 0;
+    visibility: hidden;
+}
+
 .user-item:hover {
     background-color: #e2dede;
 }

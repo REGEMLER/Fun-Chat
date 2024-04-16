@@ -5,6 +5,7 @@ import { createAbout } from '../about/about';
 import { socket } from '../../..';
 import { getUsers, changeUser } from '../../controller/main/getUsers';
 import { fetchHistory, getMessage, sendMessage } from '../../controller/main/message';
+import { search } from '../../controller/main/search';
 
 function createHeader(name: string): HTMLElement {
     const header = document.createElement('header');
@@ -33,6 +34,8 @@ function createAside(): HTMLElement {
         <div class="user-list"></div>
     `;
     aside.innerHTML = inner;
+    const input = aside.querySelector('#searchUser') as HTMLInputElement;
+    input.addEventListener('input', search);
     return aside;
 }
 

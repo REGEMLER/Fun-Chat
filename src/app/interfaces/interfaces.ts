@@ -94,3 +94,26 @@ export interface IHistoryRes {
         messages: message[];
     };
 }
+
+export interface IDeleteReq {
+    id: string;
+    type: 'MSG_DELETE';
+    payload: {
+        message: {
+            id: string;
+        };
+    };
+}
+
+export interface IDeleteRes {
+    id: string | null;
+    type: 'MSG_DELETE';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isDeleted: boolean;
+            };
+        };
+    };
+}

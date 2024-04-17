@@ -85,6 +85,7 @@ export function fetchHistory(event: MessageEvent) {
             if (isDelivered) status = 'Delivered';
             if (isReaded) status = 'Read';
             const messageItem = createMessage(
+                message.id,
                 message.from,
                 `${date.toLocaleDateString()} - ${date.getHours()}:${date.getMinutes()}`,
                 message.text,
@@ -95,6 +96,10 @@ export function fetchHistory(event: MessageEvent) {
                 const messageStatusElement = messageItem.querySelector('.message_status');
                 messageItem.classList.add('message_send');
                 if (messageStatusElement) messageStatusElement.classList.remove('message_status_passive');
+                const messageBTNS = [...messageItem.querySelectorAll('.message_info_btn')];
+                messageBTNS.forEach((btn) => {
+                    btn.classList.add('message_info_btn-active');
+                });
             }
             fuild.append(messageItem);
         });

@@ -2,7 +2,7 @@ import './index.css';
 import { launcher } from './app/app';
 import { createModal } from './app/view/modal/modal';
 
-export let socket = new WebSocket('ws://127.0.0.1:4000');
+export let socket: WebSocket = new WebSocket('ws://127.0.0.1:4000');
 
 socket.addEventListener('open', () => {
     launcher();

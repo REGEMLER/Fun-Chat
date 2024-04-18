@@ -9,7 +9,7 @@ import { search } from '../../controller/main/search';
 import { deleteMessage } from '../../controller/main/delete';
 
 function createHeader(name: string): HTMLElement {
-    const header = document.createElement('header');
+    const header: HTMLElement = document.createElement('header');
     header.classList.add('header');
     const inner: string = `
         <h2 class="header_title">User: ${name}</h2>
@@ -28,7 +28,7 @@ function createHeader(name: string): HTMLElement {
 }
 
 function createAside(): HTMLElement {
-    const aside = document.createElement('aside');
+    const aside: HTMLElement = document.createElement('aside');
     aside.classList.add('aside');
     const inner: string = `
         <input type="text" id="searchUser" placeholder="Search..."/>
@@ -41,7 +41,7 @@ function createAside(): HTMLElement {
 }
 
 function createChat(): HTMLElement {
-    const chat = document.createElement('section');
+    const chat: HTMLElement = document.createElement('section');
     chat.classList.add('chat');
     const inner: string = `
         <div class="chat-header">
@@ -67,7 +67,7 @@ function createChat(): HTMLElement {
 }
 
 function createFooter(): HTMLElement {
-    const footer = document.createElement('footer');
+    const footer: HTMLElement = document.createElement('footer');
     footer.classList.add('footer');
     const inner: string = `
         <div class="footer_logo">
@@ -101,15 +101,15 @@ export function createMainPage(name: string) {
     socket.addEventListener('message', deleteMessage);
 
     const root: HTMLElement = createRoot();
-    const main = document.createElement('main');
+    const main: HTMLElement = document.createElement('main');
     main.classList.add('main');
-    const header = createHeader(name);
-    const mainSection = document.createElement('section');
+    const header: HTMLElement = createHeader(name);
+    const mainSection: HTMLElement = document.createElement('section');
     mainSection.classList.add('main-section');
-    const aside = createAside();
-    const chat = createChat();
+    const aside: HTMLElement = createAside();
+    const chat: HTMLElement = createChat();
     mainSection.append(aside, chat);
-    const footer = createFooter();
+    const footer: HTMLElement = createFooter();
     main.append(header, mainSection, footer);
     root.innerHTML = '';
     root.append(main);

@@ -1,4 +1,4 @@
-import { IMessageReq, IMessageRes, IHistoryRes, IHistoryReq } from '../../interfaces/interfaces';
+import { IMessageReq, IMessageRes, IHistoryRes, IHistoryReq, message } from '../../interfaces/interfaces';
 import { socket } from '../../..';
 import { createMessage } from '../../view/message/createMessage';
 import { createModal } from '../../view/modal/modal';
@@ -28,11 +28,11 @@ export function sendMessage() {
 export function getMessage(event: MessageEvent) {
     const data: IMessageRes = JSON.parse(event.data);
     if (data.type === 'MSG_SEND') {
-        const chatName = document.querySelector('.chat_name');
-        const recipient = data.payload.message.to;
-        const sender = data.payload.message.from;
+        const chatName: Element | null = document.querySelector('.chat_name');
+        const recipient: string = data.payload.message.to;
+        const sender: string = data.payload.message.from;
         if (chatName) {
-            const adress = chatName.textContent;
+            const adress: string | null = chatName.textContent;
             if (adress === recipient) {
                 const hisoryReq: IHistoryReq = {
                     id: Date.now.toString(),
@@ -65,38 +65,33 @@ export function getMessage(event: MessageEvent) {
 export function fetchHistory(event: MessageEvent) {
     const data: IHistoryRes = JSON.parse(event.data);
     if (data.type === 'MSG_FROM_USER') {
-        const messages = data.payload.messages;
-        const fuild = document.querySelector('.chat_fuild') as HTMLDivElement;
+        const messages: message[] = data.payload.messages;
+        const fuild: HTMLDivElement = document.querySelector('.chat_fuild') as HTMLDivElement;
         if (messages.length === 0) {
             fuild.textContent = 'Send your first message!';
             return;
         }
         fuild.innerHTML = '';
-        const currentUser = sessionStorage.getItem('name');
-        const sortedMessages = messages.sort((a, b) => Number(a.datetime) - Number(b.datetime));
-        sortedMessages.forEach((message) => {
-            const date = new Date(message.datetime);
-            const isDelivered = message.status.isDelivered;
-            const isReaded = message.status.isReaded;
-            const isEdited = message.status.isEdited;
-            let edit = 'Not edited';
-            if (isEdited) edit = 'Edited';
-            let status = '';
-            if (isDelivered) status = 'Delivered';
-            if (isReaded) status = 'Read';
+        const currentUser: string | null = sessionStorage.getItem('name');
+        const sortedMessages: message[] = messages.sort((a, b) => Number(a.datetime) - Number(b.datetime));
+        sortedMessages.forEach((item) => {
+            const date = new Date(item.datetime);
+            const isEdited = item.status.isEdited;
+            const edit = isEdited ? 'Edited' : 'Not edited';
+            const status = 'Delivered';
             const messageItem = createMessage(
-                message.id,
-                message.from,
-                `${date.toLocaleDateString()} - ${date.getHours()}:${date.getMinutes()}`,
-                message.text,
+                item.id,
+                item.from,
+                `${date.toLocaleDateString()} - ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`,
+                item.text,
                 status,
                 edit
             );
-            if (currentUser === message.from) {
-                const messageStatusElement = messageItem.querySelector('.message_status');
+            if (currentUser === item.from) {
+                const messageStatusElement: Element | null = messageItem.querySelector('.message_status');
                 messageItem.classList.add('message_send');
                 if (messageStatusElement) messageStatusElement.classList.remove('message_status_passive');
-                const messageBTNS = [...messageItem.querySelectorAll('.message_info_btn')];
+                const messageBTNS: Element[] = [...messageItem.querySelectorAll('.message_info_btn')];
                 messageBTNS.forEach((btn) => {
                     btn.classList.add('message_info_btn-active');
                 });

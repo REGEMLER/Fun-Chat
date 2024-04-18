@@ -1,6 +1,6 @@
 export function search(event: Event) {
-    const target = event.target;
-    const allUsers = [...document.querySelectorAll('.user-item')];
+    const target: EventTarget | null = event.target;
+    const allUsers: Element[] = [...document.querySelectorAll('.user-item')];
     if (allUsers && target instanceof HTMLInputElement) {
         if (target.value === '') {
             allUsers.forEach((user) => {

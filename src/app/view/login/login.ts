@@ -26,10 +26,10 @@ export function createLoginForm() {
         </form>
     </main>`;
     root.innerHTML = inner;
-    const form: HTMLFormElement | null = root.querySelector('.login_form') as HTMLFormElement;
-    const login: HTMLElement | null = document.getElementById('name') as HTMLInputElement;
-    const password: HTMLElement | null = document.getElementById('password') as HTMLInputElement;
-    const aboutBtn: HTMLElement | null = document.getElementById('about') as HTMLButtonElement;
+    const form: HTMLFormElement = root.querySelector('.login_form') as HTMLFormElement;
+    const login: HTMLInputElement = document.getElementById('name') as HTMLInputElement;
+    const password: HTMLInputElement = document.getElementById('password') as HTMLInputElement;
+    const aboutBtn: HTMLButtonElement = document.getElementById('about') as HTMLButtonElement;
     form.addEventListener('submit', onLogin);
     login.addEventListener('input', onInput('password'));
     password.addEventListener('input', onInput('name'));

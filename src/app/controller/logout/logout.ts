@@ -11,7 +11,7 @@ function checkLogout(event: MessageEvent) {
             return;
         }
         if (data.payload.user) {
-            const isLogined = data.payload.user.isLogined;
+            const isLogined: boolean = data.payload.user.isLogined;
             if (!isLogined) {
                 createLoginForm();
                 sessionStorage.clear();
@@ -23,8 +23,8 @@ function checkLogout(event: MessageEvent) {
 }
 
 export function onLogout() {
-    const name = sessionStorage.getItem('name');
-    const password = sessionStorage.getItem('password');
+    const name: string | null = sessionStorage.getItem('name');
+    const password: string | null = sessionStorage.getItem('password');
     const request: IauthReq = {
         id: Date.now.toString(),
         type: 'USER_LOGOUT',

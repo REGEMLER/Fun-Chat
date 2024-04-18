@@ -1,6 +1,6 @@
 import './root.css';
 
-export function createRoot() {
+export function createRoot(): HTMLElement {
     let root: HTMLElement | null = document.getElementById('root');
     if (!root) {
         root = document.createElement('DIV');

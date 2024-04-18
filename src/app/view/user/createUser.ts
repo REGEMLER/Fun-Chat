@@ -2,12 +2,12 @@ import './user.css';
 import { setUserEvent } from '../../controller/main/setUser';
 
 export function createUserItem(name: string, isLogined: boolean): HTMLElement {
-    const user = document.createElement('div');
+    const user: HTMLDivElement = document.createElement('div');
     user.classList.add('user-item');
-    const userName = document.createElement('div');
+    const userName: HTMLDivElement = document.createElement('div');
     userName.classList.add('user-name');
     userName.textContent = name;
-    const span = document.createElement('span');
+    const span: HTMLSpanElement = document.createElement('span');
     span.classList.add('user-status');
     if (!isLogined) {
         userName.classList.add('user-name_inactive');

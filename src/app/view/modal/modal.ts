@@ -1,8 +1,8 @@
 import './modal.css';
 
-export function createModal(text: string) {
+export function createModal(text: string): HTMLDivElement {
     const root: HTMLElement | null = document.getElementById('root');
-    const modal: HTMLElement = document.createElement('DIV');
+    const modal: HTMLDivElement = document.createElement('div');
     modal.classList.add('modal');
     modal.innerHTML = `
         <div class="modal_inner">
@@ -14,7 +14,7 @@ export function createModal(text: string) {
         root.append(modal);
         document.body.style.overflowY = 'hidden';
     }
-    const closeBtn = modal.querySelector('.modal_btn') as HTMLButtonElement;
+    const closeBtn: HTMLButtonElement = modal.querySelector('.modal_btn') as HTMLButtonElement;
     closeBtn.addEventListener('click', () => {
         document.body.style.overflowY = '';
         modal.remove();

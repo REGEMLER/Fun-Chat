@@ -14,7 +14,7 @@ function checkLogin(event: MessageEvent) {
         if (data.payload.user) {
             const isLogined = data.payload.user.isLogined;
             if (isLogined) {
-                const name = document.getElementById('name') as HTMLInputElement;
+                const name: HTMLInputElement = document.getElementById('name') as HTMLInputElement;
                 createMainPage(name.value);
             } else {
                 createModal('Error! You are already logined');
@@ -26,8 +26,8 @@ function checkLogin(event: MessageEvent) {
 export function onLogin(event: SubmitEvent) {
     event.preventDefault();
     if (event.target instanceof HTMLFormElement) {
-        const name = document.getElementById('name') as HTMLInputElement;
-        const password = document.getElementById('password') as HTMLInputElement;
+        const name: HTMLInputElement = document.getElementById('name') as HTMLInputElement;
+        const password: HTMLInputElement = document.getElementById('password') as HTMLInputElement;
         sessionStorage.setItem('name', name.value);
         sessionStorage.setItem('password', password.value);
         const request: IauthReq = {

@@ -12,6 +12,6 @@ export function createAbout() {
         <div id="back" class="about_btn btn">Go back</div>
     </main>`;
     root.innerHTML = inner;
-    const backBtn: HTMLElement | null = document.getElementById('back') as HTMLButtonElement;
+    const backBtn: HTMLButtonElement = document.getElementById('back') as HTMLButtonElement;
     backBtn.addEventListener('click', onAbout);
 }

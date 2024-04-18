@@ -9,7 +9,7 @@ export function createMessage(
     status: string,
     edited: string
 ): HTMLElement {
-    const message = document.createElement('div');
+    const message: HTMLDivElement = document.createElement('div');
     message.id = id;
     message.classList.add('message');
     const inner: string = `
@@ -27,7 +27,7 @@ export function createMessage(
 
     `;
     message.innerHTML = inner;
-    const deleteBTN = message.querySelector('.remove_btn');
-    deleteBTN?.addEventListener('click', onDelete);
+    const deleteBTN: HTMLDivElement = message.querySelector('.remove_btn') as HTMLDivElement;
+    deleteBTN.addEventListener('click', onDelete);
     return message;
 }

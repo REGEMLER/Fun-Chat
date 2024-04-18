@@ -1,12 +1,16 @@
 import { socket } from '../../..';
 import { IHistoryReq } from '../../interfaces/interfaces';
 
+function selectElements() {
+    const nameFuild: Element | null = document.querySelector('.chat_name');
+    const statusFuild: Element | null = document.querySelector('.chat_status');
+    const chatFuild: Element | null = document.querySelector('.chat_fuild');
+    const textarea: HTMLTextAreaElement = document.querySelector('.textarea') as HTMLTextAreaElement;
+    const chatBtn: HTMLButtonElement = document.querySelector('.chat_btn') as HTMLButtonElement;
+    return { nameFuild, statusFuild, chatFuild, textarea, chatBtn };
+}
 export function setUser(user: Element) {
-    const nameFuild = document.querySelector('.chat_name');
-    const statusFuild = document.querySelector('.chat_status');
-    const chatFuild = document.querySelector('.chat_fuild');
-    const textarea = document.querySelector('.textarea') as HTMLTextAreaElement;
-    const chatBtn = document.querySelector('.chat_btn') as HTMLButtonElement;
+    const { nameFuild, statusFuild, chatFuild, textarea, chatBtn } = selectElements();
     if (nameFuild && statusFuild && chatFuild && textarea && chatBtn) {
         statusFuild.textContent = '';
         nameFuild.textContent = '';

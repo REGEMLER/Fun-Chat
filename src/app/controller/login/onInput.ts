@@ -1,18 +1,18 @@
 import { validateLetters, validateLength } from './validators';
 
-function validateInput(fuild: HTMLInputElement, hint: Element, name: string, length: number) {
-    let isValid = true;
-    const currentHint = hint;
+function validateInput(fuild: HTMLInputElement, hint: Element, name: string, length: number): boolean {
+    let isValid: boolean = true;
+    const currentHint: Element = hint;
     currentHint.textContent = '';
     if (!validateLetters(fuild.value)) {
-        const currentContent = currentHint.textContent;
-        const errorMessage = 'You can use only English alphabet letters and numbers.';
+        const currentContent: string = currentHint.textContent;
+        const errorMessage: string = 'You can use only English alphabet letters and numbers.';
         currentHint.textContent = `${currentContent} ${errorMessage}`;
         isValid = false;
     }
     if (!validateLength(fuild.value, length)) {
-        const currentContent = currentHint.textContent;
-        const errorMessage = `Minimum length of the ${name} should be ${length} characters.`;
+        const currentContent: string = currentHint.textContent;
+        const errorMessage: string = `Minimum length of the ${name} should be ${length} characters.`;
         currentHint.textContent = `${currentContent} ${errorMessage}`;
         isValid = false;
     }
@@ -22,12 +22,12 @@ function validateInput(fuild: HTMLInputElement, hint: Element, name: string, len
 export function onInput(siblingFuild: 'password' | 'name') {
     return (e: Event) => {
         if (e.target instanceof HTMLInputElement) {
-            const loginBTN = document.getElementById('login') as HTMLButtonElement;
+            const loginBTN: HTMLButtonElement = document.getElementById('login') as HTMLButtonElement;
             e.target.classList.remove('login_input-error');
-            const element = document.getElementById(`${siblingFuild}`);
+            const element: HTMLElement | null = document.getElementById(`${siblingFuild}`);
             if (element instanceof HTMLInputElement) {
-                const hint1 = document.querySelector('.login_message1');
-                const hint2 = document.querySelector('.login_message2');
+                const hint1: Element | null = document.querySelector('.login_message1');
+                const hint2: Element | null = document.querySelector('.login_message2');
                 let isValidPassword: boolean | null = null;
                 let isValidName: boolean | null = null;
                 if (siblingFuild === 'name') {

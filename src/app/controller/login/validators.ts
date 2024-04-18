@@ -1,6 +1,6 @@
 export function validateLetters(value: string): boolean {
-    const reg = /[a-zA-Z0-9]/;
-    let result = true;
+    const reg: RegExp = /[a-zA-Z0-9]/;
+    let result: boolean = true;
     const arr: string[] = value.split('');
     arr.forEach((item) => {
         if (!reg.test(item)) result = false;

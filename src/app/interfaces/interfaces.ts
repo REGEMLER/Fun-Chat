@@ -117,3 +117,28 @@ export interface IDeleteRes {
         };
     };
 }
+
+export interface IEditReq {
+    id: string;
+    type: 'MSG_EDIT';
+    payload: {
+        message: {
+            id: string;
+            text: string;
+        };
+    };
+}
+
+export interface IEditRes {
+    id: string | null;
+    type: 'MSG_EDIT';
+    payload: {
+        message: {
+            id: string;
+            text: string;
+            status: {
+                isEdited: boolean;
+            };
+        };
+    };
+}

@@ -66,6 +66,41 @@
     visibility: hidden;
 }
 
+.edit_message_fuild {
+    max-width: 95%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.edit_area {
+    flex-basis: 75%;
+    height: 40px;
+    border: 1px solid var(--lightGreen);
+    font-size: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.edit_area_btn {
+    display: block;
+    flex-basis: 25%;
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--lightGreen);
+    color: white;
+    transition: all linear .5s;
+}
+
+.edit_area_btn:active {
+    transform: scale(0.95);
+}
+
 @media screen and (max-width: 768px){
 
     .message{

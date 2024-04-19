@@ -1,4 +1,5 @@
 import { onDelete } from '../../controller/main/delete';
+import { onEdit } from '../../controller/main/edit';
 import './message.css';
 
 export function createMessage(
@@ -29,5 +30,7 @@ export function createMessage(
     message.innerHTML = inner;
     const deleteBTN: HTMLDivElement = message.querySelector('.remove_btn') as HTMLDivElement;
     deleteBTN.addEventListener('click', onDelete);
+    const EditBTN: HTMLDivElement = message.querySelector('.edit_btn') as HTMLDivElement;
+    EditBTN.addEventListener('click', onEdit);
     return message;
 }

@@ -142,3 +142,26 @@ export interface IEditRes {
         };
     };
 }
+
+export interface IReadReq {
+    id: string;
+    type: 'MSG_READ';
+    payload: {
+        message: {
+            id: string;
+        };
+    };
+}
+
+export interface IReadRes {
+    id: string | null;
+    type: 'MSG_READ';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isReaded: boolean;
+            };
+        };
+    };
+}

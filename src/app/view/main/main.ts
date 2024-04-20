@@ -8,6 +8,7 @@ import { fetchHistory, getMessage, sendMessage } from '../../controller/main/mes
 import { search } from '../../controller/main/search';
 import { deleteMessage } from '../../controller/main/delete';
 import { editMessage } from '../../controller/main/edit';
+import { onRead } from '../../controller/main/read';
 
 function createHeader(name: string): HTMLElement {
     const header: HTMLElement = document.createElement('header');
@@ -101,6 +102,7 @@ export function createMainPage(name: string) {
     socket.addEventListener('message', getMessage);
     socket.addEventListener('message', deleteMessage);
     socket.addEventListener('message', editMessage);
+    socket.addEventListener('message', onRead);
     const root: HTMLElement = createRoot();
     const main: HTMLElement = document.createElement('main');
     main.classList.add('main');

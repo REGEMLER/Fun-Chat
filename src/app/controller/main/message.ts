@@ -1,7 +1,29 @@
-import { IMessageReq, IMessageRes, IHistoryRes, IHistoryReq, message } from '../../interfaces/interfaces';
+import { IMessageReq, IMessageRes, IHistoryRes, IHistoryReq, message, IReadReq } from '../../interfaces/interfaces';
 import { socket } from '../../..';
 import { createMessage } from '../../view/message/createMessage';
-import { createModal } from '../../view/modal/modal';
+
+function setUserChat(messageItem: HTMLElement) {
+    const messageStatusElement: Element | null = messageItem.querySelector('.message_status');
+    messageItem.classList.add('message_send');
+    if (messageStatusElement) messageStatusElement.classList.remove('message_status_passive');
+    const messageBTNS: Element[] = [...messageItem.querySelectorAll('.message_info_btn')];
+    messageBTNS.forEach((btn) => {
+        btn.classList.add('message_info_btn-active');
+    });
+}
+
+function sendReadRequest(item: message) {
+    const readRequest: IReadReq = {
+        id: Date.now.toString(),
+        type: 'MSG_READ',
+        payload: {
+            message: {
+                id: item.id,
+            },
+        },
+    };
+    socket.send(JSON.stringify(readRequest));
+}
 
 export function sendMessage() {
     const textarea: HTMLTextAreaElement | null = document.querySelector('textarea');
@@ -55,8 +77,6 @@ export function getMessage(event: MessageEvent) {
                     },
                 };
                 socket.send(JSON.stringify(hisoryReq));
-            } else {
-                createModal('Your message has been delivered!');
             }
         }
     }
@@ -76,9 +96,8 @@ export function fetchHistory(event: MessageEvent) {
         const sortedMessages: message[] = messages.sort((a, b) => Number(a.datetime) - Number(b.datetime));
         sortedMessages.forEach((item) => {
             const date = new Date(item.datetime);
-            const isEdited = item.status.isEdited;
-            const edit = isEdited ? 'Edited' : 'Not edited';
-            const status = 'Delivered';
+            const edit: string = item.status.isEdited ? 'Edited' : 'Not edited';
+            const status: string = item.status.isReaded ? 'Read' : 'Delivered';
             const messageItem = createMessage(
                 item.id,
                 item.from,
@@ -87,14 +106,10 @@ export function fetchHistory(event: MessageEvent) {
                 status,
                 edit
             );
-            if (currentUser === item.from) {
-                const messageStatusElement: Element | null = messageItem.querySelector('.message_status');
-                messageItem.classList.add('message_send');
-                if (messageStatusElement) messageStatusElement.classList.remove('message_status_passive');
-                const messageBTNS: Element[] = [...messageItem.querySelectorAll('.message_info_btn')];
-                messageBTNS.forEach((btn) => {
-                    btn.classList.add('message_info_btn-active');
-                });
+            if (currentUser !== item.from) {
+                sendReadRequest(item);
+            } else {
+                setUserChat(messageItem);
             }
             fuild.append(messageItem);
         });

@@ -101,7 +101,7 @@ export function fetchHistory(event: MessageEvent) {
             const messageItem = createMessage(
                 item.id,
                 item.from,
-                `${date.toLocaleDateString()} - ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`,
+                `${date.toLocaleDateString()}-${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`,
                 item.text,
                 status,
                 edit

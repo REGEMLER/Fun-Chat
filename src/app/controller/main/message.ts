@@ -29,7 +29,7 @@ export function sendMessage() {
     const textarea: HTMLTextAreaElement | null = document.querySelector('textarea');
     const chatName: Element | null = document.querySelector('.chat_name');
     if (textarea && chatName) {
-        const text: string = textarea.value;
+        const text: string = textarea.value.trim();
         const adress: string | null = chatName.textContent;
         if (!adress || !text) return;
         const messageRequest: IMessageReq = {
